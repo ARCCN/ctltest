@@ -5,7 +5,7 @@ June, 2013
 Description
 =======
   
-  Ctltest is a collection of scripts for benchmarking OpenFlow controllers.
+  Ctltest is a collection of scripts for performance benchmarking OpenFlow controllers.
   The scripts use Cbench tool to measure controllers' throughput and
   latency. The collection contains scripts for seven popular open source
   OpenFlow controllers, though you can add your own controller to the test.
@@ -15,16 +15,16 @@ Description
     * Installation and running of popular open source OpenFlow controllers
       (NOX, POX, Floodlight, Trema, Beacon, MuL, Maestro, Ryu)
     * install_contr.sh : script to install all the controllers
-    * benchmark_thrpughput.sh : script for benchmarking the throughput of the
+    * benchmark_thrpughput.sh : script for performance benchmarking the throughput of the
       controllers with Cbench
-    * benchmark_latency.sh : script for benchmarking the latency of the 
+    * benchmark_latency.sh : script for performance benchmarking the latency of the 
       controllers with Cbench
     * stat.sh : script for collecting statistics of CPU and memory usage
       while running the controllers
     * parser.py : script for parsing the logs of Cbench throughput test
       and plotting the figures via gnulot
       
-  All scripts were used for benchmaring controllers under Debian/Ubuntu
+  All scripts were used for testing controllers under Debian/Ubuntu
   (tested with Ubuntu 12.04 LTS).
 
 
