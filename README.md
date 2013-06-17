@@ -1,9 +1,14 @@
-Collection of tests for OpenFlow controllers testing using Cbench tool
+Collection of scripts for OpenFlow controllers testing using Cbench tool
 June, 2013
 
 
 Description
 =======
+  
+  Ctltest is a collection of scripts for benchmarking OpenFlow controllers.
+  The scripts use Cbench tool to measure controllers' throughput and
+  latency. The collection contains scripts for seven popular open source
+  OpenFlow controllers, though you can add your own controller to the test.
 
   The project contains the following scripts:
 
