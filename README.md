@@ -2,8 +2,8 @@ Collection of tests for OpenFlow controllers testing using Cbench tool
 June, 2013
 
 
-DESCRIPTION
-+++++++
+Description
+=======
 
   The project contains the following scripts:
 
@@ -23,8 +23,8 @@ DESCRIPTION
   (tested with Ubuntu 12.04 LTS).
 
 
-INSTALL CONTROLLERS
-+++++++
+Install Controllers
+=======
 
   To install all the controllers run instal_contr.sh script, which takes
   one parameter - the path to the directory where they should be installed.
@@ -34,8 +34,8 @@ INSTALL CONTROLLERS
   ./instal_contr.sh .
  
   
-RUN BENCHMARKS
-+++++++
+Run Benchmarks
+=======
 
   To run benchmarks you need to get Cbench tool:
   
@@ -89,8 +89,8 @@ RUN BENCHMARKS
     ./parser.py contr_log_th
 
     
-ADD YOUR CONTROLLER
-+++++++
+Add Your Controller
+=======
 
   To test your own controller you need to create a directory containing
   the following scripts:
