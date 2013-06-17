@@ -103,6 +103,6 @@ Add Your Controller
   For scripts examples see the existing controllers' scripts.
   
   Then add the name of your directory to the CONTR_DIR list in each script:
-  intall_contr.sh, benchmark_throughput.sh and benchmark_latency.sh.
+  install_contr.sh, benchmark_throughput.sh and benchmark_latency.sh.
   Now you can run the scripts as described above, your controller will be
   added to the tests.
