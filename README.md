@@ -9,7 +9,7 @@ Description
 
     * Installation and running of popular open source OpenFlow controllers
       (NOX, POX, Floodlight, Trema, Beacon, MuL, Maestro, Ryu)
-    * instal_contr.sh : script to install all the controllers
+    * install_contr.sh : script to install all the controllers
     * benchmark_thrpughput.sh : script for benchmarking the throughput of the
       controllers with Cbench
     * benchmark_latency.sh : script for benchmarking the latency of the 
@@ -26,12 +26,12 @@ Description
 Install Controllers
 =======
 
-  To install all the controllers run instal_contr.sh script, which takes
+  To install all the controllers run install_contr.sh script, which takes
   one parameter - the path to the directory where they should be installed.
   
   To install the controllers to the current directory:
 
-    ./instal_contr.sh .
+    ./install_contr.sh .
  
   
 Run Benchmarks
