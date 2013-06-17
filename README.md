@@ -31,7 +31,7 @@ Install Controllers
   
   To install the controllers to the current directory:
 
-  ./instal_contr.sh .
+    ./instal_contr.sh .
  
   
 Run Benchmarks
