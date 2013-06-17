@@ -1,12 +1,9 @@
-ctltest
-=======
-
 Collection of tests for OpenFlow controllers testing using Cbench tool
 June, 2013
 
 
 DESCRIPTION
-=======
++++++++
 
   The project contains the following scripts:
 
@@ -27,7 +24,7 @@ DESCRIPTION
 
 
 INSTALL CONTROLLERS
-=======
++++++++
 
   To install all the controllers run instal_contr.sh script, which takes
   one parameter - the path to the directory where they should be installed.
@@ -38,7 +35,7 @@ INSTALL CONTROLLERS
  
   
 RUN BENCHMARKS
-=======
++++++++
 
   To run benchmarks you need to get Cbench tool:
   
@@ -93,7 +90,8 @@ RUN BENCHMARKS
 
     
 ADD YOUR CONTROLLER
-=======
++++++++
+
   To test your own controller you need to create a directory containing
   the following scripts:
   
