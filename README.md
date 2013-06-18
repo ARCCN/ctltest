@@ -9,6 +9,11 @@ Description
   The scripts use Cbench tool to measure controllers' throughput and
   latency. The collection contains scripts for seven popular open source
   OpenFlow controllers, though you can add your own controller to the test.
+  
+  The scripts install and start the controller on one server and then via SSH 
+  run Cbench on the other server (you also may use the same server for launching
+  the controller and Cbench). Cbench sends Packet In messages to the controller
+  and registers the controller's replies (Packet Out or Flow Mod messages).
 
   The project contains the following scripts:
 
@@ -42,11 +47,17 @@ Install Controllers
 Run Benchmarks
 =======
 
+  First, install the controllers (see "Install Controllers" section).
+
   To run benchmarks you need to get Cbench tool:
   
   http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench
+  
+  If you are going to use one server for running the controllers and
+  Cbench, install Cbench on the server where you've run install_contr.sh
+  script ("Controllers server"). Otherwise, install it to another
+  server ("Cbench server").
 
-  First, install the controllers (see "Install Controllers" section).
   To benchmark throughput or latency of all the installed controllers
   use benchmark_thrpughput.sh and benchmark_latency.sh scripts.
 
