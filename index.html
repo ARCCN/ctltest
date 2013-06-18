@@ -44,21 +44,29 @@
   run Cbench on the other server (you also may use the same server for launching
   the controller and Cbench). Cbench sends Packet In messages to the controller
   and registers the controller's replies (Packet Out or Flow Mod messages).</p>
+  
+<p>Scrips run a number of tests, which help to analyze the correlation between
+  the controllers' performance and the number of avaliable CPU cores, 
+  connected switches and hosts. For example, you can plot the
+  correlation between the number of CPU cores and the controllers' throughput:</p>
+  
+  <a href="threads.png"><img src="threads.png" border=0></a>
 
 <p>The project contains the following scripts:</p>
 
-<pre><code>* Installation and running of popular open source OpenFlow controllers
+<ul>
+<li> Installation and running of popular open source OpenFlow controllers
   (NOX, POX, Floodlight, Trema, Beacon, MuL, Maestro, Ryu)
-* install_contr.sh : script to install all the controllers
-* benchmark_thrpughput.sh : script for performance benchmarking the throughput of the
+<li> install_contr.sh : script to install all the controllers
+<li> benchmark_thrpughput.sh : script for performance benchmarking the throughput of the
   controllers with Cbench
-* benchmark_latency.sh : script for performance benchmarking the latency of the 
+<li> benchmark_latency.sh : script for performance benchmarking the latency of the 
   controllers with Cbench
-* stat.sh : script for collecting statistics of CPU and memory usage
+<li> stat.sh : script for collecting statistics of CPU and memory usage
   while running the controllers
-* parser.py : script for parsing the logs of Cbench throughput test
+<li> parser.py : script for parsing the logs of Cbench throughput test
   and plotting the figures via gnulot
-</code></pre>
+</ul>
 
 <p>All scripts were used for testing controllers under Debian/Ubuntu
   (tested with Ubuntu 12.04 LTS).</p>
@@ -144,11 +152,12 @@ contr_server="192.168.1.41"
 <p>To test your own controller you need to create a directory containing
   the following scripts:</p>
 
-<pre><code>* who.sh : echo the controller's name (for debug purposes)
-* install.sh : script which describes how to install your contrioller
-* start.sh : script for running the controller, can take one parameter - 
+<ul>
+<li> who.sh : echo the controller's name (for debug purposes)
+<li> install.sh : script which describes how to install your contrioller
+<li> start.sh : script for running the controller, can take one parameter - 
   the number of CPU cores to use.
-</code></pre>
+</ul>
 
 <p>For scripts examples see the existing controllers' scripts.</p>
 
