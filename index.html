@@ -35,19 +35,24 @@
 <h1>
 <a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h1>
 
-<p>Ctltest is a collection of scripts for benchmarking OpenFlow controllers.
+<p>Ctltest is a collection of scripts for performance benchmarking OpenFlow controllers.
   The scripts use Cbench tool to measure controllers' throughput and
   latency. The collection contains scripts for seven popular open source
   OpenFlow controllers, though you can add your own controller to the test.</p>
+
+<p>The scripts install and start the controller on one server and then via SSH 
+  run Cbench on the other server (you also may use the same server for launching
+  the controller and Cbench). Cbench sends Packet In messages to the controller
+  and registers the controller's replies (Packet Out or Flow Mod messages).</p>
 
 <p>The project contains the following scripts:</p>
 
 <pre><code>* Installation and running of popular open source OpenFlow controllers
   (NOX, POX, Floodlight, Trema, Beacon, MuL, Maestro, Ryu)
 * install_contr.sh : script to install all the controllers
-* benchmark_thrpughput.sh : script for benchmarking the throughput of the
+* benchmark_thrpughput.sh : script for performance benchmarking the throughput of the
   controllers with Cbench
-* benchmark_latency.sh : script for benchmarking the latency of the 
+* benchmark_latency.sh : script for performance benchmarking the latency of the 
   controllers with Cbench
 * stat.sh : script for collecting statistics of CPU and memory usage
   while running the controllers
@@ -55,7 +60,7 @@
   and plotting the figures via gnulot
 </code></pre>
 
-<p>All scripts were used for benchmaring controllers under Debian/Ubuntu
+<p>All scripts were used for testing controllers under Debian/Ubuntu
   (tested with Ubuntu 12.04 LTS).</p>
 
 <h1>
@@ -72,12 +77,18 @@
 <h1>
 <a name="run-benchmarks" class="anchor" href="#run-benchmarks"><span class="octicon octicon-link"></span></a>Run Benchmarks</h1>
 
+<p>First, install the controllers (see "Install Controllers" section).</p>
+
 <p>To run benchmarks you need to get Cbench tool:</p>
 
 <p><a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench</a></p>
 
-<p>First, install the controllers (see "Install Controllers" section).
-  To benchmark throughput or latency of all the installed controllers
+<p>If you are going to use one server for running the controllers and
+  Cbench, install Cbench on the server where you've run install_contr.sh
+  script ("Controllers server"). Otherwise, install it to another
+  server ("Cbench server").</p>
+
+<p>To benchmark throughput or latency of all the installed controllers
   use benchmark_thrpughput.sh and benchmark_latency.sh scripts.</p>
 
 <p>By default it is assumed that you run the controllers on the same host
