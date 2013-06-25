@@ -72,6 +72,7 @@ Run Benchmarks
     ./benchmark_latency.sh
     
   benchmark_throughput.sh options:
+  
     -h       show help message
     -d       path to dir with controllers (.)
     -S       username@ip for Cbench server (127.0.0.1)
@@ -86,6 +87,7 @@ Run Benchmarks
     -x       fixed number of switches for MACs iterating (32)
     
   benchmark_latency.sh options:
+  
     -h       show help message
     -d       path to dir with controllers (.)
     -S       username@ip for Cbench server (127.0.0.1)
