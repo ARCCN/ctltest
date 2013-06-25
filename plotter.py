@@ -9,7 +9,7 @@ def main():
     # Parse log file
     
     log_filename = sys.argv[1]
-    logfile = open(log_filename, 'r');
+    logfile = open(log_filename, 'r')
     
     avgmax = 0
     count = 0
@@ -17,13 +17,39 @@ def main():
     results['sw'] = {}
     results['mac'] = {}
     
+    i = 0
     for line in logfile:
+        if i == 0 :
+            setting = line.split(' ') # fix_mac, fix_switch, max_threads
+            fix_mac = int(setting[0])
+            fix_switch = int(setting[1])
+            all_threads = int(setting[2])
+            #print {"%d %d %d" % (fix_mac, fix_switch, all_threads)}
+            if all_threads > 8:
+                max_threads = 8
+            else:
+                max_threads = all_threads
+            i += 1
+            continue
+        
+        if i == 1 :
+            switch_list = line[0:-1]
+            #print switch_list
+            i += 1
+            continue
+            
+        if i == 2 :
+            mac_list = line[0:-1]
+            #print mac_list
+            i += 1
+            continue
+          
         if line[0] == '-' and count != 0:
         
             if not (controller in results[testcase]) :
                 results[testcase][controller] = {}
-                for i in range(1,13) :
-                    results[testcase][controller][i] = {}
+                for j in range(1,(all_threads+1)) :
+                    results[testcase][controller][j] = {}
             if testcase == 'sw' :  
                 results[testcase][controller][threads][switches] = avgmax/count
             else :
@@ -69,7 +95,7 @@ def main():
     # Output stats to files
     sw_files = {}
     mac_files = {}
-    thr_stats = open('sw_threads', 'w')
+    thr_stats = open('threads', 'w')
     sw_stats = open('switches', 'w')
     mac_stats = open('macs', 'w')
     
@@ -102,7 +128,7 @@ def main():
     for threads in threads_pool :
         thr_stats.write(str(threads))
         for controller in sorted(results['sw'].keys()) :
-            thr_stats.write(' ' + str(results['sw'][controller][threads][32]))
+            thr_stats.write(' ' + str(results['sw'][controller][threads][fix_switch]))
         thr_stats.write('\n')
 
     #sw_stats.write('\n')
@@ -110,7 +136,7 @@ def main():
     for switches in switches_pool :
         sw_stats.write(str(switches))
         for controller in sorted(results['sw'].keys()) :
-            sw_stats.write(' ' + str(results['sw'][controller][8][switches]))
+            sw_stats.write(' ' + str(results['sw'][controller][max_threads][switches]))
         sw_stats.write('\n')
         
     for f in sw_files.keys() :
@@ -138,7 +164,7 @@ def main():
     for mac in mac_pool :
         mac_stats.write(str(mac))
         for controller in sorted(results['mac'].keys()) :
-            mac_stats.write(' ' + str(results['mac'][controller][8][mac]))
+            mac_stats.write(' ' + str(results['mac'][controller][max_threads][mac]))
         mac_stats.write('\n')
 
     for f in mac_files.keys() :
@@ -154,7 +180,7 @@ def main():
 set terminal png size 640, 320 enhanced
 set key right outside
 set size ratio 0.5
-set format y "%2.0t{/Symbol \\327}10^{%L}
+set format y "%2.0t{/Symbol \\327}10^{%L}"
 set ylabel "Flows/sec"
 """
     # Threads
@@ -188,8 +214,18 @@ set xlabel "Threads"
 set xrange [0:]
 set output "switches.png"
 set xlabel "Switches"
-set xtics ("1" 0, "4" 1, "16" 2, "32" 3, "64" 4, "256" 5)
 """)
+    
+    plotscript.write('set xtics (')
+    i = 0
+
+    for sw in switch_list.split(' ') :
+        plotscript.write('"%s" %s' % (sw, i))
+        if i != len(switch_list.split(' ')) - 1 :           
+            plotscript.write(', ')
+        i+=1
+    plotscript.write(')\n')
+
     plotscript.write('')
     numcontr = len(results['sw'])
     for i in range(1,numcontr+1) :
@@ -214,8 +250,17 @@ set xtics ("1" 0, "4" 1, "16" 2, "32" 3, "64" 4, "256" 5)
 set xrange [0:]
 set output "macs.png"
 set xlabel "MACs per switch"
-set xtics ("10^{3}" 0, "10^{4}" 1, "10^{5}" 2, "10^{6}" 3, "10^{7}" 4)
 """)
+
+    plotscript.write('set xtics (')
+    i = 0
+    for mac in mac_list.split(' ') :
+        plotscript.write('"%s" %s' % (mac, i))
+        if i != len(mac_list.split(' ')) - 1 :
+            plotscript.write(', ')
+        i+=1
+    plotscript.write(')\n')
+
     numcontr = len(results['mac'])
     for i in range(1,numcontr+1) :
         plotscript.write('set style line %s lt 1 lw 2 pt %d linecolor %d\n' % (i, i, i))   
@@ -233,8 +278,8 @@ set xtics ("10^{3}" 0, "10^{4}" 1, "10^{5}" 2, "10^{6}" 3, "10^{7}" 4)
     os.system('cat plotscript.graph | gnuplot')
     
     # Controllers
-    switches = ['1','4','16','32','64', '256']
-    macs = ['10^{3}','10^{4}','10^{5}','10^{6}','10^{7}']
+    switches = switch_list.split(' ')
+    macs = mac_list.split(' ')
     for testcase in ['sw','mac'] :
         for controller in sorted(results[testcase].keys()) :
             plotscript = open('plotscript.graph', 'w')
@@ -257,7 +302,20 @@ set yrange [0:7000000]
             plotscript.write('plot ')
             fname = testcase + '_' + controller
             for i in range(0,len(rge)) :
-                plotscript.write('"%s" using 1:%d with linespoints linestyle %d title "%s%s"' % (fname, i+2, i+1, title, rge[i]))
+                if rge == switches :
+                    legend = rge[i]
+                else :
+                    exp = 0
+                    base = int(rge[i])
+                    while base >= 10 :
+                        exp += 1
+                        base = int(base / 10)
+                    if base != 1 :
+                        legend = str(base) + '{/Symbol \\327}10^' + str(exp)
+                    else :
+                        legend = '10^' + str(exp)                        
+                
+                plotscript.write('"%s" using 1:%d with linespoints linestyle %d title "%s%s"' % (fname, i+2, i+1, title, legend))
                 if i != len(rge) -1 :
                      plotscript.write(', ')
                 
@@ -284,8 +342,8 @@ set yrange [0:7000000]
         maxthrough = 0
         maxthread = 1
         for threads in sorted(results['sw'][controller].keys()) :
-            if results['sw'][controller][threads][32] > maxthrough :
-                maxthrough = results['sw'][controller][threads][32]
+            if results['sw'][controller][threads][fix_switch] > maxthrough :
+                maxthrough = results['sw'][controller][threads][fix_switch]
                 maxthread = threads
         
         table.write('<td>%.2f</td><td>%d</td></tr>\n' % (maxthrough, maxthread))
