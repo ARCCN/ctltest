@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>Ctltest</h1>
-        <p>Collection of tests for OpenFlow controllers testing</p>
+        <p>Collection of scripts for OpenFlow controllers performance testing</p>
 
         <p class="view"><a href="https://github.com/ARCCN/ctltest">View the Project on GitHub <small>ARCCN/ctltest</small></a></p>
 
@@ -28,24 +28,24 @@
         </ul>
       </header>
       <section>
-        <p>Collection of scripts for OpenFlow controllers testing using Cbench tool</p>
+        <p>Collection of scripts for OpenFlow controllers performance testing using <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> tool</p>
 
 <p>June, 2013</p>
 
-<h1>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h1>
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
 
 <p>Ctltest is a collection of scripts for performance benchmarking OpenFlow controllers.
-  The scripts use Cbench tool to measure controllers' throughput and
+  The scripts use <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> tool to measure controllers' throughput and
   latency. The collection contains scripts for seven popular open source
-  OpenFlow controllers, though you can add your own controller to the test.</p>
+  OpenFlow controllers (NOX, POX, Floodlight, Beacon, MuL, Maestro, Ryu), though you can add your own controller to the test.</p>
 
 <p>The scripts install and start the controller on one server and then via SSH 
-  run Cbench on the other server (you also may use the same server for launching
-  the controller and Cbench). Cbench sends Packet In messages to the controller
+  run <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> on the other server (you also may use the same server for launching
+  the controller and <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a>). <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> sends Packet In messages to the controller
   and registers the controller's replies (Packet Out or Flow Mod messages).</p>
   
-<p>Scrips run a number of tests, which help to analyze the correlation between
+<p>Scripts run a number of tests, which help to analyze the correlation between
   the controllers' performance and the number of avaliable CPU cores, 
   connected switches and hosts. For example, you can plot the
   correlation between the number of CPU cores and the controllers' throughput:</p>
@@ -57,24 +57,24 @@
 <ul>
 <li> Installation and running of popular open source OpenFlow controllers
   (NOX, POX, Floodlight, Trema, Beacon, MuL, Maestro, Ryu)
-<li> install_contr.sh : script to install all the controllers
-<li> benchmark_thrpughput.sh : script for performance benchmarking the throughput of the
-  controllers with Cbench
-<li> benchmark_latency.sh : script for performance benchmarking the latency of the 
-  controllers with Cbench
-<li> stat.sh : script for collecting statistics of CPU and memory usage
+<li> <strong>install_contr.sh</strong> : script to install all the controllers
+<li> <strong>benchmark_thrpughput.sh</strong> : script for performance benchmarking the throughput of the
+  controllers with <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a>
+<li> <strong>benchmark_latency.sh</strong> : script for performance benchmarking the latency of the 
+  controllers with <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a>
+<li> <strong>stat.sh</strong> : script for collecting statistics of CPU and memory usage
   while running the controllers
-<li> parser.py : script for parsing the logs of Cbench throughput test
+<li> <strong>plotter.py</strong> : script for parsing the logs of <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> throughput test
   and plotting the figures via gnulot
 </ul>
 
 <p>All scripts were used for testing controllers under Debian/Ubuntu
   (tested with Ubuntu 12.04 LTS).</p>
 
-<h1>
-<a name="install-controllers" class="anchor" href="#install-controllers"><span class="octicon octicon-link"></span></a>Install Controllers</h1>
+<h2>
+<a name="install-controllers" class="anchor" href="#install-controllers"><span class="octicon octicon-link"></span></a>Install Controllers</h2>
 
-<p>To install all the controllers run install_contr.sh script, which takes
+<p>To install all the controllers run <strong>install_contr.sh</strong> script, which takes
   one parameter - the path to the directory where they should be installed.</p>
 
 <p>To install the controllers to the current directory:</p>
@@ -82,79 +82,106 @@
 <pre><code>./install_contr.sh .
 </code></pre>
 
-<h1>
-<a name="run-benchmarks" class="anchor" href="#run-benchmarks"><span class="octicon octicon-link"></span></a>Run Benchmarks</h1>
+<h2>
+<a name="run-benchmarks" class="anchor" href="#run-benchmarks"><span class="octicon octicon-link"></span></a>Run Benchmarks</h2>
 
-<p>First, install the controllers (see "Install Controllers" section).</p>
+<p>First, install the controllers (see <a href="#install-controllers">Install Controllers</a> section). All scripts are run on the server where the controllers are installed.</p>
 
-<p>To run benchmarks you need to get Cbench tool:</p>
-
-<p><a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench</a></p>
+<p>To run benchmarks you need to get <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> tool.</p>
 
 <p>If you are going to use one server for running the controllers and
-  Cbench, install Cbench on the server where you've run install_contr.sh
+  <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a>, install <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> on the server where you've run <strong>install_contr.sh</strong>
   script ("Controllers server"). Otherwise, install it to another
   server ("Cbench server").</p>
 
 <p>To benchmark throughput or latency of all the installed controllers
-  use benchmark_thrpughput.sh and benchmark_latency.sh scripts.</p>
+  use <strong>benchmark_thrpughput.sh</strong> and <strong>benchmark_latency.sh</strong> scripts.</p>
+
+<p>To run tests with defaults, if you have installed the controllers into
+  the current directory and have 12 CPU cores:</p>
+
+<pre><code>./benchmark_throughput.sh
+./benchmark_latency.sh
+</code></pre>
+
+<p><strong>benchmark_throughput.sh</strong> options:</p>
+<pre><code>-h       show help message
+-d       path to dir with controllers (.)
+-S       username@ip for Cbench server (127.0.0.1)
+-c       ip for Controllers server (localhost)
+-r       number of Cbench runs for each testcase (3)
+-t       number of CPU cores (12)
+-m       one Cbench test duration (for Cbench), msec (10000)
+-l       number of test loops (for Cbench) (10)
+-s       list of switches (for Cbench) ('1 4 16 32 64 256')
+-M       list of MACs per switch (for Cbench) ('1000 10000 100000 1000000 10000000')
+-f       fixed MACs for switch number iterating (100000)
+-x       fixed number of switches for MACs iterating (32)
+</code></pre>
+    
+<p><strong>benchmark_latency.sh</strong> options:</p>
+<pre><code>-h       show help message
+-d       path to dir with controllers (.)
+-S       username@ip for Cbench server (127.0.0.1)
+-c       ip for Controllers server (localhost)
+-r       number of Cbench runs for each testcase (3)
+-m       one Cbench test duration (for Cbench), msec (10000)
+-l       number of test loops (for Cbench) (10)
+-M       list of MACs per switch (for Cbench) ('1000 10000 100000 1000000 10000000')
+</code></pre>
 
 <p>By default it is assumed that you run the controllers on the same host
-  with Cbench. If you want to benchmark the controllers running on a
-  remote host, change IP adresses of control network interface at the 
-  Cbnech server and the Controllers server in the both scripts, e.g.:</p>
+  with <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a>. If you want to benchmark the controllers running on a
+  remote host, pass IP adresses of control network interface at the 
+  Cbench server and the Controllers server with the script params, e.g.:</p>
 
-<pre><code>cbench_server="username@192.168.1.42"
-contr_server="192.168.1.41"
+<pre><code>./benchmark_throughput.sh -S login@192.168.1.42 -c 192.168.1.41
 </code></pre>
 
-<p>Note that you need to fill the user name which will be used for SSH
+<p>Note that you can set the login which will be used for SSH
   connection to the Cbench server (also we advise to manage the SSH keys
-  on both servers to avoid entering password each time Cbench is run).
-  All scripts are run on the Controllers server.</p>
-
-<p>Both scripts take two parameters: the path to the directory where
-  the controllers are installed and the duration of one Cbench test.
-  If you have installed the controllers into the current directory, run:</p>
-
-<pre><code>./benchmark_throughput.sh . 10000
-./benchmark_latency.sh . 10000
-</code></pre>
+  on both servers to avoid entering password each time <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> is run).</p>
+  
+<p>Also note that if you set -s parameter for <strong>benchmark_throughput.sh</strong>
+the -f parameter must be passed as well. The same is true for the -M and -x options.
+</p>
 
 <p>Each script starts the controllers on the Controller server and then
-  runs Cbench on the Cbench server via SSH. Controllers are run with
-  different number of avaliable cores. Cbench is run in throughput or
-  latency mode and vrying the number of switches and MACs.</p>
+  runs <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> on the Cbench server via SSH. Controllers are run with
+  different number of avaliable cores. <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> is run in throughput or
+  latency mode and varying the number of switches and MACs.</p>
 
-<p>The Cbench logs are written to contr_log_th and contr_log_lat.</p>
+<p>The <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> logs are written to <em>contr_log_th</em> and <em>contr_log_lat</em>.</p>
 
-<p>The stat.sh script is run automaticaly in the background. The log is
+<p>The <strong>stat.sh</strong> script is run automaticaly in the background. The log is
   written to stats_th and stats_lat.</p>
 
 <p>Note that by default Trema controller is not included in the test, as it
-  doesn't work properly under Cbench workload with 10 sec test duration.
+  doesn't work properly under <a href="http://docs.projectfloodlight.org/display/floodlightcontroller/Cbench">Cbench</a> workload with 10 sec test duration.
   To include Trema, add 04_Trema to the CONTR_DIR lists in
-  benchmark_throughput.sh and benchmark_latency.sh scripts. You also need to
+  <strong>benchmark_throughput.sh</strong> and <strong>benchmark_latency.sh</strong> scripts. You also need to
   set a smaller test duration, e.g.:</p>
 
-<pre><code>./benchmark_throughput.sh . 5000
-./benchmark_latency.sh . 5000
+<pre><code>./benchmark_throughput.sh -m 5000
+./benchmark_latency.sh -m 5000
 </code></pre>
+
+<h2>Plotting the Results</h2>
 
 <p>To plot the results of throughput testing run:</p>
 
-<pre><code>./parser.py contr_log_th
+<pre><code>./plotter.py contr_log_th
 </code></pre>
 
-<h1>
-<a name="add-your-controller" class="anchor" href="#add-your-controller"><span class="octicon octicon-link"></span></a>Add Your Controller</h1>
+<h2>
+<a name="add-your-controller" class="anchor" href="#add-your-controller"><span class="octicon octicon-link"></span></a>Add Your Controller</h2>
 
 <p>To test your own controller you need to create a directory containing
   the following scripts:</p>
 
 <ul>
 <li> who.sh : echo the controller's name (for debug purposes)
-<li> install.sh : script which describes how to install your contrioller
+<li> install.sh : script which describes how to install your controller
 <li> start.sh : script for running the controller, can take one parameter - 
   the number of CPU cores to use.
 </ul>
@@ -162,9 +189,12 @@ contr_server="192.168.1.41"
 <p>For scripts examples see the existing controllers' scripts.</p>
 
 <p>Then add the name of your directory to the CONTR_DIR list in each script:
-  install_contr.sh, benchmark_throughput.sh and benchmark_latency.sh.
+  <strong>install_contr.sh</strong>, <strong>benchmark_throughput.sh</strong> and <strong>benchmark_latency.sh</strong>.
   Now you can run the scripts as described above, your controller will be
   added to the tests.</p>
+  
+<h2>Contacts</h2>
+<p>If you want to contribute or to add other controllers to the tests, contact us: <a href="mailto:dev@arccn.ru">dev@arccn.ru</a>.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/ARCCN">ARCCN</a></p>
